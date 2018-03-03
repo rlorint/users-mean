@@ -32,7 +32,7 @@ export class EditUserComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  cancelEditingUser(): void{
+  cancelEditingUser(): void {
     this.router.navigate(['']);
   }
 

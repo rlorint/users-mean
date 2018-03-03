@@ -13,7 +13,6 @@ export class UsersComponent implements OnInit {
   userToDelete: User;
   selectedSearchField: string;
   textToSearch: string;
-  asc: boolean = false;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
@@ -55,7 +54,6 @@ export class UsersComponent implements OnInit {
   }
 
   order(field: string, order: string): void {
-    this.asc = !this.asc;
     this.userService.orderDesc(field, order).subscribe(users => this.users = users);
   }
 
