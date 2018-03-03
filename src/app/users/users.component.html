@@ -1,0 +1,81 @@
+<!-- <h2>List of users in the 1400degrees company</h2> -->
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+        <select [(ngModel)]="selectedSearchField" class="custom-select">
+          <option selected>{{selectedSearchField}}</option>
+          <option value="name">Name</option>
+          <option value="surname">Surname</option>
+          <option value="email">Email</option>
+          <option value="phone">Phone</option>
+          <option value="position">Position</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <input type="text" [(ngModel)]="textToSearch" class="form-control" name="search"/>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-info" (click)="goToSearch()">Search</button>
+    </div>
+    <div class="offset-md-2 col-md-2">
+      <a routerLink="/addUser" class="btn btn-success">Add user</a>
+    </div>
+  </div>
+
+	<table class="table" id="tbUsers">
+		<thead>
+		<tr>
+	      <th scope="col">
+          #&nbsp;
+          <i (click)="order('id','desc')" class="fa fa-caret-down"></i>
+          <i (click)="order('id','asc')" class="fa fa-caret-up"></i>
+        </th>
+	      <th scope="col">
+          Name &nbsp;
+          <i (click)="order('name','desc')" class="fa fa-caret-down"></i>
+          <i (click)="order('name','asc')" class="fa fa-caret-up"></i>
+        </th>
+	      <th scope="col">
+          Surname &nbsp;
+          <i (click)="order('surname','desc')" class="fa fa-caret-down"></i>
+          <i (click)="order('surname','asc')" class="fa fa-caret-up"></i>
+        </th>
+        <th scope="col">
+          Email &nbsp;
+          <i (click)="order('email','desc')" class="fa fa-caret-down"></i>
+          <i (click)="order('email','asc')" class="fa fa-caret-up"></i>
+        </th>
+	      <th scope="col">
+          Phone &nbsp;
+          <i (click)="order('phone','desc')" class="fa fa-caret-down"></i>
+          <i (click)="order('phone','asc')" class="fa fa-caret-up"></i>
+        </th>
+	      <th scope="col">
+          Position &nbsp;
+          <i (click)="order('position','desc')" class="fa fa-caret-down"></i>
+          <i (click)="order('position','asc')" class="fa fa-caret-up"></i>
+        </th>
+	      <th scope="col">Actions</th>
+	    </tr>
+	   </thead>
+  	<tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.surname}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.phone}}</td>
+        <td>{{user.position}}</td>
+        <td>
+          <button type="button" class="btn btn-info"><a routerLink="/editUser/{{user.id}}">Edit</a></button>
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" (click)="delete(user)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <app-delete-modal *ngIf="userToDelete" [userToDelete]="userToDelete" (onDeleted)="onDeleted()"></app-delete-modal>
+
+</div>

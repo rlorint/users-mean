@@ -1,0 +1,6 @@
+{
+  "/test": {
+    "target": "http://dev.1400degrees.com",
+    "secure": false
+  }
+}
