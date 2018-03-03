@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { UserService } from '../user.service';
@@ -13,7 +13,7 @@ import { User } from '../user';
 export class EditUserComponent implements OnInit {
   userToEdit: User;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private location: Location) { }
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private location: Location) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -29,11 +29,11 @@ export class EditUserComponent implements OnInit {
     this.userService.editUser(this.userToEdit).subscribe(resp => {
       console.log(resp);
     });
-    this.location.back();
+    this.router.navigate(['']);
   }
-  
+
   cancelEditingUser(): void{
-    this.location.back();
+    this.router.navigate(['']);
   }
 
 

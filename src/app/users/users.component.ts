@@ -47,7 +47,7 @@ export class UsersComponent implements OnInit {
   }
 
   goToSearch() {
-    this.router.navigate('', { queryParams: { searchField: this.selectedSearchField, searchValue: this.textToSearch } });
+    this.router.navigate([''], { queryParams: { searchField: this.selectedSearchField, searchValue: this.textToSearch } });
   }
 
   search(): void {
