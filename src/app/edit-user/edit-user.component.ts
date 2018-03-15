@@ -17,11 +17,11 @@ export class EditUserComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.getUserById(id);
+    this.getUserById(Number(id));
   }
 
 
-  getUserById(id: string): void {
+  getUserById(id: Number): void {
     this.userService.getUserById(id).subscribe(userToEdit => this.userToEdit = userToEdit);
   }
 

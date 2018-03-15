@@ -15,6 +15,7 @@ export class AddUserComponent implements OnInit {
   constructor(private userService: UserService, private location: Location, private router: Router) { }
 
   addUser():void {
+    this.userToAdd.id = 3;
     this.userService.addUser(this.userToAdd).subscribe(resp => {
       console.log(resp);
       this.router.navigate(['']);

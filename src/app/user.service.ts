@@ -17,8 +17,7 @@ export class UserService {
     console.log(this.allUsersList);
     if(this.allUsersList == undefined || forceRefresh) {
       console.log("Sending a get request for the users");
-      return this.http.get<Response>('/test/list.php').pipe(
-        map(resp => resp.message),
+      return this.http.get<User[]>('/api/users').pipe(
         tap(resp => this.allUsersList = resp));
     }
     else {
@@ -27,16 +26,16 @@ export class UserService {
     }
   }
 
-  addUser(userToAdd: User): Observable<Object> {
-    return this.http.post('/test/add.php', "name="+userToAdd.name+"&surname="+userToAdd.surname+"&email="+userToAdd.email, {headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})}).pipe(
-      tap(resp => console.log(resp))
-  );
+  addUser(userToAdd: User): Observable<User> {
+    console.log("about to add user");
+    return this.http.post('/api/users', userToAdd).pipe(
+      tap(resp => console.log("!!!!",resp))
+    );
   }
 
-  getUserById(id: string): Observable<User> {
+  getUserById(id: Number): Observable<User> {
     console.log("looking for used with id",id);
-    return this.getUsers().pipe(
-      map(function(users) { return users.filter(user => user.id === id)[0]}),
+    return this.http.get<User>('/api/users/'+id).pipe(
       tap(resp => console.log(resp)));
   }
 
