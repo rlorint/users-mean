@@ -1,0 +1,13 @@
+1. git clone 
+2. npm install
+3. node server.js to turn on the express server
+4. ng serve --proxy-config proxy.conf.json to start the angular app, with proxy due to the cross origin problem
+
+mongo to open the mongodb terminal
+  - useful commands: 
+      - use usersdb; 
+      - show collections; 
+      - db.users.insert({"id":1, "name":"Roxana", "surname":"Cestari","email":"rlorint@gmail.com", "phone":"+40 749402290", "position":"Developer"})
+      - db.users.findOne({'id':1})
+      
+mongod to start the mongodb client
