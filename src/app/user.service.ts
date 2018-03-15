@@ -28,7 +28,7 @@ export class UserService {
 
   addUser(userToAdd: User): Observable<User> {
     console.log("about to add user");
-    return this.http.post('/api/users', userToAdd).pipe(
+    return this.http.post<User>('/api/users', userToAdd).pipe(
       tap(resp => console.log("!!!!",resp))
     );
   }
@@ -39,14 +39,15 @@ export class UserService {
       tap(resp => console.log(resp)));
   }
 
-  editUser(userToEdit: User): Observable<Object> {
-    return this.http.post('/test/edit.php', "name="+userToEdit.name+"&surname="+userToEdit.surname+"&email="+userToEdit.email+"&id="+userToEdit.id, {headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})}).pipe(
+  editUser(userToEdit: User): Observable<User> {
+    return this.http.put<User>('/api/users/'+userToEdit.id, userToEdit).pipe(
       tap(resp => console.log(resp)));
   }
 
   deleteUser(userToDelete: User): Observable<Object> {
-    return this.http.post('/test/delete.php', "id="+userToDelete.id, {headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})}).
-    pipe(tap(resp => console.log(resp)));
+    console.log(userToDelete.id);
+    return this.http.delete('/api/users/'+userToDelete.id).pipe
+    (tap(resp => console.log(resp)));
   }
 
   search(textToSearch: string, selectedSearchField: string): Observable<User[]> {

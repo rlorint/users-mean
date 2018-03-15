@@ -13,6 +13,19 @@ app.get('/api/users', function(req, res, next) {
   });
 });
 
+app.post('/api/users', function(req,res,next) {
+  var userToAdd = new User();
+  userToAdd.id = req.body.id;
+  userToAdd.name = req.body.name;
+  userToAdd.surname = req.body.surname;
+  userToAdd.email =  req.body.email;
+  userToAdd.position = req.body.position;
+  userToAdd.phone = req.body.phone;
+  userToAdd.save(function(err, docs) {
+    res.send(docs);
+    });
+});
+
 app.get('/api/users/:id', function(req, res, next) {
   User.findOne({'id':req.params.id}, function(err, docs) {
     console.log("found user by id", docs);
@@ -20,15 +33,26 @@ app.get('/api/users/:id', function(req, res, next) {
   });
 });
 
-app.post('/api/users', function(req,res,next) {
-  new User({id: req.body.id, name: req.body.name,
-            surname: req.body.surname, email: req.body.email,
-            postions: req.body.position,phone: req.body.phone})
-            .save(function(err, docs) {
-              console.log("added",docs);
-            });
-});
+app.put('/api/users/:id', function(req, res, next) {
+  User.findOne({'id':req.params.id}, function(err, user) {
+    console.log("found user");
+    user.name = req.body.name;
+    user.surname = req.body.surname;
+    user.email =  req.body.email;
+    user.position = req.body.position;
+    user.phone = req.body.phone;
+    user.save(function(err,docs) {
+      res.send(docs);
+    });
+  });
+})
 
+app.delete('/api/users/:id', function(req, res, next) {
+  console.log("suntem in delete");
+  User.remove({'id':req.params.id}, function(err, docs) {
+    res.send(docs);
+  })
+})
 
 app.listen(3000, function() {
   console.log("listening on port ...");
